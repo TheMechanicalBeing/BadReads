@@ -8,8 +8,14 @@ class Human(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     _first_name = db.Column(db.String)
     _last_name = db.Column(db.String)
-    birth_year = db.Column(db.DateTime)
-    gender = db.Column(db.String)
+    gender_id = db.Column(db.Integer, db.ForeignKey('genders.id'))
+
+    gender = db.relationship('Gender', uselist=False)
+
+    def __init__(self, first_name, last_name, gender_id):
+        self._first_name = first_name
+        self.last_name = last_name
+        self.gender_id = gender_id
 
     @property
     def first_name(self):

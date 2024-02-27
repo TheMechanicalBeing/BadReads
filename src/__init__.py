@@ -2,10 +2,10 @@ from flask import Flask
 
 from src.models import db
 from src.config import Config
-from src.commands import init_db
+from src.commands import init_db, populate_db
 
 
-COMMANDS = [init_db]
+COMMANDS = [init_db, populate_db]
 
 
 def create_app():
