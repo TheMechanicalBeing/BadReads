@@ -2,7 +2,8 @@ from flask.cli import with_appcontext
 import click
 
 from src.extensions import db
-from src.models import Human, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, Publisher, Language
+from src.models import Human, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
+    Publisher, Language, Role, User
 
 
 @click.command("init-db")
@@ -104,6 +105,30 @@ def populate_db():
     BookVersion(book2.id, publisher2.id, format2.id, language2.id, 9789941151774, 2021, 252).create(commit=False)
 
     click.echo("Books populated")
+    click.echo("Populating roles...")
+
+    role1 = Role("User")
+    role2 = Role("Administrator")
+
+    role1.create(commit=False)
+    role2.create(commit=False)
+
+    click.echo("Roles populated")
+    click.echo("Populating users...")
+
+    human_user1 = Human("Tornike", "Tsulukidze", 1)
+    human_user2 = Human("khvicha", "kvaratskhelia", 1)
+
+    human_user1.create(commit=False)
+    human_user2.create(commit=False)
+
+    user1 = User(human_user1.id, role2.id, "TheMechanicalBeing", "tornike.tsulukidze@gmail.com", "593559933", "Pass123!")
+    user2 = User(human_user2.id, role1.id, "Football77", "khvicha.khvaratskhelia@live.com", "577777777", "Pass777!")
+
+    user1.create(commit=False)
+    user2.create(commit=False)
+
+    click.echo("Users populated")
 
     db.session.commit()
 
