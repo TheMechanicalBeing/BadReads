@@ -28,6 +28,10 @@ class User(db.Model, UserMixin, BaseModel):
         self._password = password
 
     @property
+    def is_admin(self):
+        return self.role_id == 2
+
+    @property
     def password(self):
         return self._password
 

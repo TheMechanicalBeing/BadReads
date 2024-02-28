@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_login import login_user
 
 from src.models import db, User
 from src.config import Config
@@ -19,7 +20,8 @@ def create_app():
 
     @app.route("/")
     def initial():
-        return "Hello world!"
+        login_user(User.query.get_or_404(1))
+        return f"Hello world! {User.query.get(1).is_admin}"
 
     return app
 
