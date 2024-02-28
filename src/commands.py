@@ -2,7 +2,7 @@ from flask.cli import with_appcontext
 import click
 
 from src.extensions import db
-from src.models import Human, Gender, Author, Category, Book, CategoryBook, AuthorBook
+from src.models import Human, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, Publisher, Language
 
 
 @click.command("init-db")
@@ -53,6 +53,37 @@ def populate_db():
     category4.create(commit=False)
 
     click.echo("Categories populated")
+    click.echo("Populating formats...")
+
+    format1 = BookFormat("Paperback")
+    format2 = BookFormat("Hardcover")
+    format3 = BookFormat("Kindle Edition")
+    format4 = BookFormat("ebook")
+
+    format1.create(commit=False)
+    format2.create(commit=False)
+    format3.create(commit=False)
+    format4.create(commit=False)
+
+    click.echo("Formats populated")
+    click.echo("Populating publishers...")
+
+    publisher1 = Publisher("პალიტრა L გამომცემლობა")
+    publisher2 = Publisher("სულაკაურის გამომცემლობა")
+
+    publisher1.create(commit=False)
+    publisher2.create(commit=False)
+
+    click.echo("Publishers populated")
+    click.echo("Populating languages...")
+
+    language1 = Language("English")
+    language2 = Language("Georgian")
+
+    language1.create(commit=False)
+    language2.create(commit=False)
+
+    click.echo("Languages populated")
     click.echo("Populating books...")
 
     book1 = Book("Tender is the Night", 1934)
@@ -68,6 +99,9 @@ def populate_db():
     CategoryBook(category2.id, book2.id).create(commit=False)
     CategoryBook(category3.id, book2.id).create(commit=False)
     CategoryBook(category4.id, book1.id).create(commit=False)
+
+    BookVersion(book1.id, publisher1.id, format1.id, language2.id, 9789941293436, 2018, 442).create(commit=False)
+    BookVersion(book2.id, publisher2.id, format2.id, language2.id, 9789941151774, 2021, 252).create(commit=False)
 
     click.echo("Books populated")
 
