@@ -6,6 +6,7 @@ from src.config import Config
 from src.commands import init_db, populate_db
 from src.extensions import login_manager
 from src.admin import admin
+from src.admin.user import UserView
 
 
 COMMANDS = [init_db, populate_db]
@@ -40,6 +41,7 @@ def register_extensions(app):
 
     # Flask-Admin
     admin.init_app(app)
+    admin.add_view(UserView(User, db.session, name="მომხმარებლები", endpoint="user"))
 
 
 def register_commands(app):

@@ -10,3 +10,6 @@ class Role(db.Model, BaseModel):
 
     def __init__(self, role):
         self.role = role
+
+    def __repr__(self):
+        return f"{self.role}"
