@@ -10,3 +10,6 @@ class Gender(db.Model, BaseModel):
 
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return f"<Gender: {self.name}"

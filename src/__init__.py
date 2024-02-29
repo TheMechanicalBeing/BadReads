@@ -3,13 +3,13 @@ from flask_login import login_user
 
 from src.models import db, User
 from src.config import Config
-from src.commands import init_db, populate_db
+from src.commands import init_db, populate_db, personal_command
 from src.extensions import login_manager
 from src.admin import admin
 from src.admin.user import UserView
 
 
-COMMANDS = [init_db, populate_db]
+COMMANDS = [init_db, populate_db, personal_command]
 
 
 def create_app():

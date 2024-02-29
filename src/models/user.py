@@ -25,6 +25,9 @@ class User(db.Model, HumanMixin, UserMixin, BaseModel):
         self.phone_number = phone_number
         self._password = password
 
+    def __repr__(self):
+        return f'<User: {self.username}>'
+
     @property
     def is_admin(self):
         return self.role_id == 2

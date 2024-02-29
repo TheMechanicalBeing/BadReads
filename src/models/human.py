@@ -9,6 +9,9 @@ class HumanMixin:
         self.last_name = last_name
         self.gender_id = gender_id
 
+    def __repr__(self):
+        return f'<HumanMixin: {self.first_name} {self.last_name}'
+
     @declared_attr
     def _first_name(self):
         return db.Column(db.String)

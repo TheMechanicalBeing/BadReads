@@ -123,3 +123,16 @@ def populate_db():
     db.session.commit()
 
     click.echo("Database populated")
+
+
+@click.command("personal-command")
+@with_appcontext
+def personal_command():
+    book = Book.query.get(1)
+
+    # BookVersion(book.id, 1, 1, 1, 123, 2000, 200).create()
+
+    book_version = BookVersion.query.get(1)
+
+    print(book.languages)
+    print(book_version.language)

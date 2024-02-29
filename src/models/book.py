@@ -19,6 +19,9 @@ class Book(db.Model, BaseModel):
         self._title = title
         self.publication_year = publication_year
 
+    def __repr__(self):
+        return f"<Book: {self.title} ({self.publication_year})>"
+
     @property
     def title(self):
         return self._title

@@ -13,6 +13,9 @@ class Category(db.Model, BaseModel):
     def __init__(self, name):
         self._name = name
 
+    def __repr__(self):
+        return f'<Category: {self.name}>'
+
     @property
     def name(self):
         return self._name

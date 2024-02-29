@@ -12,3 +12,6 @@ class Language(db.Model, BaseModel):
 
     def __init__(self, language):
         self.language = language
+
+    def __repr__(self):
+        return f"<Language: {self.language}>"
