@@ -2,7 +2,7 @@ from flask.cli import with_appcontext
 import click
 
 from src.extensions import db
-from src.models import Human, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
+from src.models import HumanMixin, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
     Publisher, Language, Role, User
 
 
@@ -28,14 +28,8 @@ def populate_db():
     click.echo("Genders populated")
     click.echo("Populating authors...")
 
-    human_author1 = Human("Francis Scott", "Fitzgerald",1)
-    human_author2 = Human("Hermann Karl", "Hesse", 1)
-
-    human_author1.create(commit=False)
-    human_author2.create(commit=False)
-
-    author1 = Author(human_author1.id, 1896, 1940)
-    author2 = Author(human_author2.id, 1877, 1962)
+    author1 = Author("francis scott", "Fitzgerald", 1, 1896, 1940)
+    author2 = Author("Hermann Karl", "hesse", 1, 1877, 1962)
 
     author1.create(commit=False)
     author2.create(commit=False)
@@ -116,14 +110,10 @@ def populate_db():
     click.echo("Roles populated")
     click.echo("Populating users...")
 
-    human_user1 = Human("Tornike", "Tsulukidze", 1)
-    human_user2 = Human("khvicha", "kvaratskhelia", 1)
-
-    human_user1.create(commit=False)
-    human_user2.create(commit=False)
-
-    user1 = User(human_user1.id, role2.id, "TheMechanicalBeing", "tornike.tsulukidze@gmail.com", "593559933", "Pass123!")
-    user2 = User(human_user2.id, role1.id, "Football77", "khvicha.khvaratskhelia@live.com", "577777777", "Pass777!")
+    user1 = User("Tornike", "Tsulukidze", 1, role2.id, "TheMechanicalBeing", "tornike.tsulukidze@gmail.com",
+                 "593559933", "Pass123!")
+    user2 = User("khvicha", "kvaratskhelia", 1, role1.id, "Football77", "khvicha.khvaratskhelia@live.com", "577777777",
+                 "Pass777!")
 
     user1.create(commit=False)
     user2.create(commit=False)

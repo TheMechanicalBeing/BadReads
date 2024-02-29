@@ -2,25 +2,23 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from src.extensions import db
-from src.models import BaseModel
+from src.models import BaseModel, HumanMixin
 
 
-class User(db.Model, UserMixin, BaseModel):
+class User(db.Model, HumanMixin, UserMixin, BaseModel):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    human_id = db.Column(db.Integer, db.ForeignKey('people.id'))
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     username = db.Column(db.String)
     email_address = db.Column(db.String)
     phone_number = db.Column(db.String)
     _password = db.Column(db.String)
 
-    human = db.relationship("Human", uselist=False)
     role = db.relationship("Role", uselist=False)
 
-    def __init__(self, human_id, role_id, username, email_address, phone_number, password):
-        self.human_id = human_id
+    def __init__(self, first_name, last_name, gender_id, role_id, username, email_address, phone_number, password):
+        super().__init__(first_name=first_name, last_name=last_name, gender_id=gender_id)
         self.role_id = role_id
         self.username = username
         self.email_address = email_address
