@@ -134,5 +134,7 @@ def personal_command():
 
     book_version = BookVersion.query.get(1)
 
-    print(book.languages)
-    print(book_version.language)
+    lang = Language.query.get(2)
+
+    print(book.book_versions)
+    print(book_version.book)

@@ -9,6 +9,8 @@ class Book(db.Model, BaseModel):
     _title = db.Column(db.String)
     publication_year = db.Column(db.Integer)
 
+    book_versions = db.relationship("BookVersion", back_populates="book")
+
     authors = db.relationship("Author", secondary="authors_books", back_populates="books")
     categories = db.relationship("Category", secondary="categories_books", back_populates="books")
     publishers = db.relationship("Publisher", secondary="book_versions", back_populates="books")
@@ -55,8 +57,7 @@ class BookVersion(db.Model, BaseModel):
     publish_year = db.Column(db.Integer)
     pages = db.Column(db.Integer)
 
-    book_format = db.relationship("BookFormat", uselist=False)
-    language = db.relationship("Language", uselist=False)
+    book = db.relationship("Book", back_populates="book_versions")
 
     def __init__(self, book_id, publisher_id, book_format_id, language_id, isbn, publish_year, pages=0):
         self.book_id = book_id
@@ -66,3 +67,6 @@ class BookVersion(db.Model, BaseModel):
         self.isbn = isbn
         self.publish_year = publish_year
         self.pages = pages
+
+    def __repr__(self):
+        return f"<BookVersion {self.isbn}"
