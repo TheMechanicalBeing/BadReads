@@ -12,4 +12,4 @@ class Gender(db.Model, BaseModel):
         self.name = name
 
     def __repr__(self):
-        return f"<Gender: {self.name}"
+        return f"<Gender: {self.name}>"

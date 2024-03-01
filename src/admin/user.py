@@ -1,15 +1,21 @@
-from wtforms.validators import DataRequired
+from flask_admin.model import InlineFormAdmin
 
 from src.admin.base import SecureModelView
+
+
+class InlineRoleView(InlineFormAdmin):
+    column_labels = {"role": "როლი"}
 
 
 class UserView(SecureModelView):
     edit_modal = True
     create_modal = True
 
-    column_list = ["role.role", "username", "email_address", "phone_number"]
+    column_list = ["username", "role.role"]
 
-    column_labels = {"role.role": "როლი", "username": "მომხმარებლის სახელი", "email_address": "მეილის მისამართი",
-                     "phone_number": "ტელეფონის ნომერი"}
+    column_labels = {"role.role": "როლი", "role": "როლი", "username": "მომხმარებლის სახელი", "gender": "სქესი",
+                     "email_address": "მეილის მისამართი", "phone_number": "ტელეფონის ნომერი"}
 
-    column_searchable_list = ["role.role", "username", "email_address", "phone_number"]
+    column_searchable_list = ["username", "role.role"]
+
+    form_columns = ["role", "gender", "username", "email_address", "phone_number"]

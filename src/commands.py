@@ -128,13 +128,6 @@ def populate_db():
 @click.command("personal-command")
 @with_appcontext
 def personal_command():
-    book = Book.query.get(1)
+    role = Role.query.get(1)
 
-    # BookVersion(book.id, 1, 1, 1, 123, 2000, 200).create()
-
-    book_version = BookVersion.query.get(1)
-
-    lang = Language.query.get(2)
-
-    print(book.book_versions)
-    print(book_version.book)
+    print(role.users[0].role)

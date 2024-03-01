@@ -15,7 +15,7 @@ class User(db.Model, HumanMixin, UserMixin, BaseModel):
     phone_number = db.Column(db.String)
     _password = db.Column(db.String)
 
-    role = db.relationship("Role", uselist=False)
+    role = db.relationship("Role", uselist=False, back_populates="users")
 
     def __init__(self, first_name, last_name, gender_id, role_id, username, email_address, phone_number, password):
         super().__init__(first_name=first_name, last_name=last_name, gender_id=gender_id)
