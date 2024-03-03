@@ -14,4 +14,4 @@ class Publisher(db.Model, BaseModel):
         self.name = name
 
     def __repr__(self):
-        return f'<Publisher: {self.name}'
+        return f'<Publisher: {self.name}>'

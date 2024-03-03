@@ -1,10 +1,4 @@
-from flask_admin.model import InlineFormAdmin
-
 from src.admin.base import SecureModelView
-
-
-class InlineRoleView(InlineFormAdmin):
-    column_labels = {"role": "როლი"}
 
 
 class UserView(SecureModelView):

@@ -17,7 +17,7 @@ class Author(db.Model, HumanMixin, BaseModel):
         self.death_year = death_year
 
     def __repr__(self):
-        return f"<Author: {self.first_name}, {self.last_name}, {self}>"
+        return f"<Author: {self._first_name}, {self._last_name}>"
 
 
 class AuthorBook(db.Model, BaseModel):
