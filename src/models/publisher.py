@@ -8,6 +8,8 @@ class Publisher(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
 
+    book_versions = db.relationship('BookVersion', back_populates="publisher")
+
     books = db.relationship('Book', secondary="book_versions", back_populates="publishers")
 
     def __init__(self, name):

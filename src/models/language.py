@@ -8,6 +8,8 @@ class Language(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String, unique=True, nullable=False)
 
+    book_versions = db.relationship('BookVersion', back_populates="language")
+
     books = db.relationship('Book', secondary="book_versions", back_populates="languages")
 
     def __init__(self, language):

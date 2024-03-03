@@ -31,10 +31,15 @@ class BookFormat(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     format_ = db.Column(db.String, unique=True)
 
+    book_versions = db.relationship("BookVersion", back_populates="book_format")
+
     books = db.relationship("Book", secondary="book_versions", back_populates="book_formats")
 
     def __init__(self, format_):
         self.format_ = format_.title()
+
+    def __repr__(self):
+        return f"<BookFormat: {self.format_}>"
 
 
 class BookVersion(db.Model, BaseModel):
@@ -50,6 +55,9 @@ class BookVersion(db.Model, BaseModel):
     pages = db.Column(db.Integer)
 
     book = db.relationship("Book", back_populates="book_versions")
+    publisher = db.relationship("Publisher", back_populates="book_versions")
+    language = db.relationship("Language", back_populates="book_versions")
+    book_format = db.relationship("BookFormat", back_populates="book_versions")
 
     def __init__(self, book_id, publisher_id, book_format_id, language_id, isbn, publish_year, pages=0):
         self.book_id = book_id
