@@ -5,19 +5,19 @@ from src.extensions import db
 
 class HumanMixin:
     def __init__(self, first_name, last_name, gender_id):
-        self._first_name = first_name
-        self.last_name = last_name
+        self.first_name_ = first_name
+        self.last_name_ = last_name
         self.gender_id = gender_id
 
     def __repr__(self):
-        return f'<HumanMixin: {self.first_name} {self.last_name}'
+        return f'<HumanMixin: {self.first_name_} {self.last_name_}'
 
     @declared_attr
-    def _first_name(self):
+    def first_name_(self):
         return db.Column(db.String)
 
     @declared_attr
-    def _last_name(self):
+    def last_name_(self):
         return db.Column(db.String)
 
     @declared_attr
@@ -30,16 +30,16 @@ class HumanMixin:
 
     @property
     def first_name(self):
-        return self._first_name
+        return self.first_name_
 
     @first_name.setter
     def first_name(self, value):
-        self._first_name = value.title()
+        self.first_name_ = value.title()
 
     @property
     def last_name(self):
-        return self._last_name
+        return self.last_name_
 
     @last_name.setter
     def last_name(self, value):
-        self._last_name = value.title()
+        self.last_name_ = value.title()

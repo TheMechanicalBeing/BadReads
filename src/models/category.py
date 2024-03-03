@@ -6,23 +6,23 @@ class Category(db.Model, BaseModel):
     __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
-    _name = db.Column(db.String, unique=True)
+    name_ = db.Column(db.String, unique=True)
 
     books = db.relationship('Book', secondary="categories_books", back_populates="categories")
 
     def __init__(self, name):
-        self._name = name
+        self.name_ = name
 
     def __repr__(self):
         return f'<Category: {self.name}>'
 
     @property
     def name(self):
-        return self._name
+        return self.name_
 
     @name.setter
     def name(self, value):
-        self._name = value.lower()
+        self.name_ = value.lower()
 
 
 class CategoryBook(db.Model, BaseModel):

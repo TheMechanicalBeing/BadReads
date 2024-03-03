@@ -128,6 +128,6 @@ def populate_db():
 @click.command("personal-command")
 @with_appcontext
 def personal_command():
-    role = Role.query.get(1)
+    book = Book.query.get(1)
 
-    print(role.users[0].role)
+    print(book.title)

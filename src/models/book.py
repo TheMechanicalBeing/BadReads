@@ -6,7 +6,7 @@ class Book(db.Model, BaseModel):
     __tablename__ = "books"
 
     id = db.Column(db.Integer, primary_key=True)
-    _title = db.Column(db.String)
+    title = db.Column(db.String)
     publication_year = db.Column(db.Integer)
 
     book_versions = db.relationship("BookVersion", back_populates="book")
@@ -18,19 +18,11 @@ class Book(db.Model, BaseModel):
     book_formats = db.relationship("BookFormat", secondary="book_versions", back_populates="books")
 
     def __init__(self, title, publication_year):
-        self._title = title
+        self.title = title
         self.publication_year = publication_year
 
     def __repr__(self):
         return f"<Book: {self.title} ({self.publication_year})>"
-
-    @property
-    def title(self):
-        return self._title
-
-    @title.setter
-    def title(self, value):
-        self._title = value.title()
 
 
 class BookFormat(db.Model, BaseModel):
