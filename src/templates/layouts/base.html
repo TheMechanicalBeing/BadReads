@@ -10,6 +10,7 @@
     {% endblock %}
 </head>
 <body>
+{#{% if current_user.is_authenticated %}#}
 {% include "layouts/navbar.html" %}
 {% include "layouts/flash-messages.html" %}
 {% block body %}

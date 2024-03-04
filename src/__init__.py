@@ -13,9 +13,11 @@ from src.admin.user import UserView
 from src.admin.language import LanguageView
 from src.admin.category import CategoryView
 from src.admin.book_format import BookFormatView
+from src.views import main_bp
 
 
 COMMANDS = [init_db, populate_db, personal_command]
+BLUEPRINTS = [main_bp]
 
 
 def create_app():
@@ -24,11 +26,7 @@ def create_app():
 
     register_extensions(app)
     register_commands(app)
-
-    @app.route("/")
-    def initial():
-        login_user(User.query.get_or_404(1))
-        return f"Hello world! {User.query.get(1).is_admin}"
+    register_blueprints(app)
 
     return app
 
@@ -59,3 +57,8 @@ def register_extensions(app):
 def register_commands(app):
     for command in COMMANDS:
         app.cli.add_command(command)
+
+
+def register_blueprints(app):
+    for blueprint in BLUEPRINTS:
+        app.register_blueprint(blueprint)
