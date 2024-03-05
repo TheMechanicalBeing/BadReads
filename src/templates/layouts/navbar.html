@@ -10,10 +10,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {{ createNavLink("main_bp.home_get", "Home") }}
-                {{ createNavLink("auth_bp.logout", "Log out") }}
+                {% if current_user.is_authenticated %}
+                    {{ createNavLink("auth_bp.logout", "Log out") }}
+                {% endif %}
             </ul>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search for a book..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>

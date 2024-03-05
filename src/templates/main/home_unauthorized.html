@@ -2,5 +2,34 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-    <h1>Hello</h1>
+    <div class="container make-border mt-5 p-5">
+        <h1 class="text-center display-1">Welcome</h1>
+        <hr>
+        <div class="container row">
+            <div class="col-4 mt-4">
+                <h4>Deciding what to read next?</h4>
+                <p>You're in the right place. Tell us what titles or genres you've enjoyed in the past, and we'll give
+                    you surprisingly insightful recommendations.</p>
+                <br>
+                <h4>What are your friends reading?</h4>
+                <p>Chances are your friends are discussing their favorite (and least favorite) books on Goodreads.</p>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5 make-border mt-3 pt-3 pb-5 d-flex flex-column make-gap">
+                <h4 class="text-center">Account authorization</h4>
+                <hr>
+                <div>
+                    <a class="btn btn-secondary col-12" href="{{ url_for('auth_bp.login_get') }}">Sign in</a>
+                    <br>
+                    <span>Log in to your account</span>
+                    <hr>
+                </div>
+                <div>
+                    <a class="btn btn-secondary col-12" href="{{ url_for('auth_bp.register_get') }}">Sign up</a>
+                    <br>
+                    <span>Don't have an account?</span>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
