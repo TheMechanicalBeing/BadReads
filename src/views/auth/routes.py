@@ -1,7 +1,7 @@
 from os import path
 
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 from src.config import Config
 from src.views.auth.forms import RegisterForm, LoginForm
@@ -13,6 +13,9 @@ auth_bp = Blueprint("auth_bp", __name__, template_folder=TEMPLATE_FOLDER, url_pr
 
 @auth_bp.get("/register")
 def register_get():
+    if current_user.is_authenticated:
+        return redirect(url_for("main_bp.home_get"))
+
     form = RegisterForm()
     return render_template("register.html", form=form)
 
@@ -23,13 +26,13 @@ def register_post():
 
     if form.validate_on_submit():
         # TODO: Should add gender in forms
-        # TODO: Should automate format for phone number
         user_to_register = User(form.first_name.data, form.last_name.data, 1, 1, form.username.data,
-                                form.email_address.data, form.phone_number.data, form.password.data)
+                                form.email_address.data, form.phone_number.data.replace(" ", "").replace("-", ""),
+                                form.password.data)
 
         user_to_register.create()
         flash("Account registered successfully", "success")
-        return redirect(url_for("main_bp.home_get"))
+        return redirect(url_for("auth_bp.login_get"))
     else:
         [[flash(error, category="danger") for error in errors] for errors in form.errors.values()]
         return redirect(url_for("auth_bp.register_get", form=form))
@@ -37,6 +40,9 @@ def register_post():
 
 @auth_bp.get("login")
 def login_get():
+    if current_user.is_authenticated:
+        return redirect(url_for("main_bp.home_get"))
+
     form = LoginForm()
     return render_template("login.html", form=form)
 
@@ -66,6 +72,7 @@ def login_post():
 
 @auth_bp.route("logout")
 def logout():
-    logout_user()
-    flash("Logged out.", "success")
+    if current_user.is_authenticated:
+        logout_user()
+        flash("Logged out.", "success")
     return redirect(url_for("auth_bp.login_get"))
