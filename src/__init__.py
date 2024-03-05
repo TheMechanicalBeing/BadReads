@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_login import login_user
+from flask_login import logout_user
 
 from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat
 from src.config import Config
@@ -13,11 +13,11 @@ from src.admin.user import UserView
 from src.admin.language import LanguageView
 from src.admin.category import CategoryView
 from src.admin.book_format import BookFormatView
-from src.views import main_bp
+from src.views import main_bp, auth_bp
 
 
 COMMANDS = [init_db, populate_db, personal_command]
-BLUEPRINTS = [main_bp]
+BLUEPRINTS = [main_bp, auth_bp]
 
 
 def create_app():
