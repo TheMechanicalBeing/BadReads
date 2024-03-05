@@ -1,9 +1,10 @@
 from os import path
 
 from flask import Blueprint, render_template, flash, redirect, url_for
+from flask_login import login_user
 
 from src.config import Config
-from src.views.auth.forms import RegisterForm
+from src.views.auth.forms import RegisterForm, LoginForm
 from src.models import User
 
 TEMPLATE_FOLDER = path.join(Config.TEMPLATE_FOLDER, "auth")
@@ -32,3 +33,31 @@ def register_post():
     else:
         [[flash(error, category="danger") for error in errors] for errors in form.errors.values()]
         return redirect(url_for("auth_bp.register_get", form=form))
+
+
+@auth_bp.get("login")
+def login_get():
+    form = LoginForm()
+    return render_template("login.html", form=form)
+
+
+@auth_bp.post("login")
+def login_post():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email_address=form.email_address.data).first()
+
+        if not user:
+            flash("This email is not registered!", "danger")
+            return redirect(url_for("auth_bp.login_get"))
+
+        if not user.check_password(form.password.data):
+            flash(f"Invalid password! {user.check_password(form.password.data)} {user.password}", "danger")
+            return redirect(url_for("auth_bp.login_get"))
+
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for("main_bp.home_get"))
+    else:
+        [[flash(error, category="danger") for error in errors] for errors in form.errors.values()]
+        return redirect(url_for("auth_bp.login_get"))

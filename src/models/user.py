@@ -23,7 +23,7 @@ class User(db.Model, HumanMixin, UserMixin, BaseModel):
         self.username = username
         self.email_address = email_address
         self.phone_number = phone_number
-        self._password = password
+        self.password = password
 
     def __repr__(self):
         return f'<User: {self.username}>'
