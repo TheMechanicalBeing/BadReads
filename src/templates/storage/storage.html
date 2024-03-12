@@ -2,8 +2,14 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-    <div class="make-border ml-4 freeze filter-div">
-        <h1>There is going to be filters</h1>
+    <div class="make-border ml-4 freeze filter-div p-3">
+        <h3>Filters {{ form.search.data }}</h3>
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            {{ form.search.label(class_="form-label") }}
+            {{ form.search(class_="form-control mb-3", placeholder="Enter what to find") }}
+            {{ form.submit(class_="btn btn-primary") }}
+        </form>
     </div>
     <div class="container row">
         <div class="col-4"></div>
