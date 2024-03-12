@@ -43,3 +43,11 @@ class HumanMixin:
     @last_name.setter
     def last_name(self, value):
         self.last_name_ = value.title()
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    @full_name.setter
+    def full_name(self, value):
+        pass

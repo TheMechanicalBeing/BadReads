@@ -1,7 +1,7 @@
 .freeze {
     position: fixed;
     top: 0;
-    width: 100%;
+    overflow-y: auto;
 }
 
 body {
@@ -15,4 +15,20 @@ body {
 
 .make-gap {
     gap: 10px;
+}
+
+.no-line-break {
+    display: inline;
+}
+
+.fill {
+    width: 100%;
+}
+
+.filter-div {
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    margin-left: 10em;
+    width: 17em;
 }

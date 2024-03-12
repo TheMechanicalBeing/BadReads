@@ -1,6 +1,6 @@
 {% from "macros.html" import createNavLink %}
 
-<nav class="navbar navbar-expand-lg bg-dark freeze" data-bs-theme="dark" style="z-index: 1;">
+<nav class="navbar navbar-expand-lg bg-dark freeze fill" data-bs-theme="dark" style="z-index: 1;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">L-iterator</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -10,6 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {{ createNavLink("main_bp.home_get", "Home") }}
+                {{ createNavLink("storage_bp.storage_get", "Storage") }}
                 {% if current_user.is_authenticated %}
                     {% if current_user.is_admin %}
                         {{ createNavLink("admin.index", "Admin") }}

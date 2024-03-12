@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% block head %}
+{% endblock %}
+{% block body %}
+    <div class="make-border ml-4 freeze filter-div">
+        <h1>There is going to be filters</h1>
+    </div>
+    <div class="container row">
+        <div class="col-4"></div>
+        <div class="col-8 make-border move-storage-right-div">
+            {% for book in books %}
+                <div class="make-border mt-4">
+                    <h3>{{ book.title }}</h3>
+                    <h6 class="no-line-break">By</h6>
+                    {% for author in book.authors %}
+                        <h6 class="no-line-break">{{ author.full_name }}. </h6>
+                    {% endfor %}
+                    <br>
+                    <p>{{ book.publication_year }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
