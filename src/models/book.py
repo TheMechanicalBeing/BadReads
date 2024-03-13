@@ -70,4 +70,4 @@ class BookVersion(db.Model, BaseModel):
         self.pages = pages
 
     def __repr__(self):
-        return f"<BookVersion {self.isbn}>"
+        return f"<BookVersion {self.book.title} - {self.isbn}>"

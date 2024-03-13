@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_login import logout_user
 
-from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat, BookTag
+from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat, BookTag, Read, WantToRead, \
+    Reading
 from src.config import Config
 from src.commands import init_db, populate_db, personal_command
 from src.extensions import login_manager
@@ -14,8 +15,8 @@ from src.admin.language import LanguageView
 from src.admin.category import CategoryView
 from src.admin.book_format import BookFormatView
 from src.admin.tag import TagView
+from src.admin.reading_behavior import ReadingView, ReadView, WantToReadView
 from src.views import main_bp, auth_bp, storage_bp, user_bp
-
 
 COMMANDS = [init_db, populate_db, personal_command]
 BLUEPRINTS = [main_bp, auth_bp, storage_bp, user_bp]
@@ -33,7 +34,6 @@ def create_app():
 
 
 def register_extensions(app):
-
     # Flask-SQLAlchemy
     db.init_app(app)
 
@@ -54,6 +54,9 @@ def register_extensions(app):
     admin.add_view(CategoryView(Category, db.session, name="კატეგორიები", endpoint="genre"))
     admin.add_view(BookFormatView(BookFormat, db.session, name="ფორმატები", endpoint="format"))
     admin.add_view(TagView(BookTag, db.session, name="თეგები", endpoint="tag"))
+    admin.add_view(ReadView(Read, db.session, name="წაკითხული", endpoint="read"))
+    admin.add_view(ReadingView(Reading, db.session, name="კითხულობს", endpoint="reading"))
+    admin.add_view(WantToReadView(WantToRead, db.session, name="წასაკითხი", endpoint="want_to_read"))
 
 
 def register_commands(app):
