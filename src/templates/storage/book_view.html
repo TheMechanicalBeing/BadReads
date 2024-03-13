@@ -1,0 +1,37 @@
+{% extends "/layouts/base.html" %}
+{% block head %}
+{% endblock %}
+{% block body %}
+    <div class="container make-border mt-5 p-4">
+        <h1>{{ book.title }}</h1>
+        <h3 class="no-line-break">By</h3>
+        {% for author in book.authors %}
+            <h3 class="no-line-break">{{ author.full_name }}. </h3>
+        {% endfor %}
+        <h4>First publication year: {{ book.publication_year }}</h4>
+
+        <hr>
+
+        {% for book_version in book_versions %}
+            <div class="container row mt-5">
+                <div class="col-4">
+                    <div style="height: 400px; width: 300px" class="make-border">
+                        <h1 class="text-center">There is going to be a cover photo</h1>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h4>Book Details:</h4>
+                    <h6>ISBN: {{ book_version.isbn }}</h6>
+                    <h6>Publisher: {{ book_version.publisher.name }}</h6>
+                    <h6>Publication Year: {{ book_version.publish_year }}</h6>
+                    <h6>Format: {{ book_version.book_format.format_ }}</h6>
+                    {% if book_version.book_format.format_ not in ["Audio"] %}
+                        <h6>Pages: {{ book_version.pages }}</h6>
+                    {% endif %}
+                    <h6>Language: {{ book_version.language.language }}</h6>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

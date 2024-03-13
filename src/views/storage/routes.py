@@ -36,3 +36,10 @@ def storage():
 
     books = books.all()
     return render_template("storage.html", books=books, form=form)
+
+
+@storage_bp.get("/books/<book_id>")
+def book_view_get(book_id):
+    book = Book.query.get(book_id)
+    book_versions = book.book_versions
+    return render_template("book_view.html", book=book, book_versions=book_versions)
