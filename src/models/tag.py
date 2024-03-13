@@ -36,6 +36,10 @@ class BookTag(db.Model, BaseModel):
     tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    book = db.relationship("Book", backref=db.backref("book_tag"))
+    user = db.relationship("User", backref=db.backref("book_tag"))
+    tag = db.relationship("Tag", backref=db.backref("book_tag"))
+
     def __init__(self, book_id, tag_id, user_id):
         self.book_id = book_id
         self.tag_id = tag_id

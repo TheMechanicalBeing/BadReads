@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_login import logout_user
 
-from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat
+from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat, BookTag
 from src.config import Config
 from src.commands import init_db, populate_db, personal_command
 from src.extensions import login_manager
@@ -13,6 +13,7 @@ from src.admin.user import UserView
 from src.admin.language import LanguageView
 from src.admin.category import CategoryView
 from src.admin.book_format import BookFormatView
+from src.admin.tag import TagView
 from src.views import main_bp, auth_bp, storage_bp, user_bp
 
 
@@ -52,6 +53,7 @@ def register_extensions(app):
     admin.add_view(LanguageView(Language, db.session, name="ენები", endpoint="language"))
     admin.add_view(CategoryView(Category, db.session, name="კატეგორიები", endpoint="genre"))
     admin.add_view(BookFormatView(BookFormat, db.session, name="ფორმატები", endpoint="format"))
+    admin.add_view(TagView(BookTag, db.session, name="თეგები", endpoint="tag"))
 
 
 def register_commands(app):
