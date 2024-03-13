@@ -16,6 +16,7 @@ class Book(db.Model, BaseModel):
     publishers = db.relationship("Publisher", secondary="book_versions", back_populates="books")
     languages = db.relationship("Language", secondary="book_versions", back_populates="books")
     book_formats = db.relationship("BookFormat", secondary="book_versions", back_populates="books")
+    # tags = db.relationship("Tag", secondary="books_tags", back_populates="books")
 
     def __init__(self, title, publication_year):
         self.title = title

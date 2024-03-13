@@ -17,6 +17,8 @@ class User(db.Model, HumanMixin, UserMixin, BaseModel):
 
     role = db.relationship("Role", uselist=False, back_populates="users")
 
+    # tags = db.relationship("Tag", secondary="book_tags", back_populates="users")
+
     def __init__(self, first_name, last_name, gender_id, role_id, username, email_address, phone_number, password):
         super().__init__(first_name=first_name, last_name=last_name, gender_id=gender_id)
         self.role_id = role_id

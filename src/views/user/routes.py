@@ -1,7 +1,7 @@
 from os import path
 
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from src.config import Config
 from src.views.user.forms import UpdateAccountForm
@@ -12,6 +12,7 @@ user_bp = Blueprint("user_bp", __name__, template_folder=TEMPLATE_FOLDER, url_pr
 
 
 @user_bp.get("/settings")
+@login_required
 def settings_get():
     form = UpdateAccountForm()
     form.first_name.data = current_user.first_name
@@ -23,6 +24,7 @@ def settings_get():
 
 
 @user_bp.post("/settings")
+@login_required
 def settings_post():
     form = UpdateAccountForm()
 

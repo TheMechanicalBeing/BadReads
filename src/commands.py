@@ -2,8 +2,8 @@ from flask.cli import with_appcontext
 import click
 
 from src.extensions import db
-from src.models import HumanMixin, Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
-    Publisher, Language, Role, User
+from src.models import Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
+    Publisher, Language, Role, User, Tag, BookTag
 
 
 @click.command("init-db")
@@ -119,6 +119,19 @@ def populate_db():
     user2.create(commit=False)
 
     click.echo("Users populated")
+    click.echo("Populating Tags...")
+
+    tag1 = Tag("prize winner")
+    tag2 = Tag("for adults")
+
+    tag1.create(commit=False)
+    tag2.create(commit=False)
+
+    BookTag(book1.id, tag2.id, user1.id).create(commit=False)
+    BookTag(book2.id, tag1.id, user1.id).create(commit=False)
+    BookTag(book2.id, tag2.id, user2.id).create(commit=False)
+
+    click.echo("Tags populated")
 
     db.session.commit()
 
