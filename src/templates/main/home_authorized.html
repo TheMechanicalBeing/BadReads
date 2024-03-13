@@ -2,5 +2,68 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-    <h1>{{ current_user.is_admin }}</h1>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-3 make-border">
+                <h5 class="card-title m-3">Currently Reading</h5>
+                {% if current_user.readings %}
+                    {% for reading in current_user.readings %}
+                        {% set book = reading.book %}
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ url_for("static", filename="/images/bookCover.png") }}" class="card-img-top"
+                                 alt="Book cover">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="card-text">Book title: {{ book.title }}</li>
+                                    <li class="card-text">Author: {{ book.authors[0].full_name }}</li>
+                                    <li class="card-text">Publication Year: {{ book.publish_year }}</li>
+                                </ul>
+                                <div class="progress mb-4" role="progressbar">
+                                    <div class="progress-bar" style="width: {{ (reading.page / reading.book_version.pages)  * 100}}%"></div>
+                                    <span>{{ reading.page }}/{{ reading.book_version.pages }}</span>
+                                </div>
+                                <a href="#" class="btn btn-primary">Update Progress</a>
+
+                            </div>
+                        </div>
+                        <hr/>
+                    {% endfor %}
+                {% else %}
+                    <div class="container">Currently reading zero books</div>
+                {% endif %}
+            </div>
+            <div class="col-9">
+                <h1>News Feed</h1>
+
+                <div class="container make-border mb-4 p-4">
+                    <h4>Your Friend</h4>
+                    <figure>
+                        <blockquote class="blockquote">
+                            <p>I just read a book: A Clockwork Orange by Anthony Burges</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer">
+                            3min ago
+                        </figcaption>
+                    </figure>
+                    <p>It was great 5/5 for me.</p>
+                </div>
+
+
+                <div class="container make-border mb-4 p-4">
+                    <h4>Recommended</h4>
+                    <h5>List of books you can try based on your read shelf</h5>
+                    <ul>
+                        <li>Clean Code: A Handbook of Agile Software Craftsmanship - Robert C. Martin</li>
+                        <li>Introduction to Algorithms - Thomas H. Cormen, Charles E. Leierson, Ronald L. Rivest</li>
+                        <li>Code Complete: A Practical Handbook of Software Construction - Steve McConnell</li>
+                        <li>The Pragmatic Programmer - Andrew Hunt, David Thomas</li>
+                        <li>Python API Development Fundamentals: Develop a Full-Stack web application with Python and
+                            Flask
+                            - Ray Chung, Jack Chan
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

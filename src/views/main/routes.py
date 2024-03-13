@@ -16,4 +16,4 @@ def home_get():
     if current_user.is_authenticated:
         return render_template("home_authorized.html", title="Home")
     else:
-        return render_template("home_unauthorized.html", title="home")
+        return render_template("home_unauthorized.html", title="Home")

@@ -11,7 +11,7 @@ class Reading(db.Model, BaseModel):
     book_version_id = db.Column(db.Integer, db.ForeignKey('book_versions.id'))
     page = db.Column(db.Integer, default=0)
 
-    user = db.relationship("User", backref=db.backref("reading"))
+    user = db.relationship("User", backref=db.backref("readings"))
     book = db.relationship("Book", backref=db.backref("reading"))
     book_version = db.relationship("BookVersion", backref=db.backref("reading"))
 
