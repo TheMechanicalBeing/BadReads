@@ -25,7 +25,8 @@ class RegisterForm(FlaskForm):
         contains_symbol = re.compile(r".*[^\s0-9a-zA-Z].*")
         contain_validators = [contains_lowercase, contains_uppercase, contains_digits, contains_symbol]
         if not all([validator.search(field.data) for validator in contain_validators]):
-            raise ValidationError("Stronger password needed (must contain: uppercase, lowercase, digit and symbol character).")
+            raise ValidationError(
+                "Stronger password needed (must contain: uppercase, lowercase, digit and symbol character).")
 
     def validate_confirm_password(self, field):
         if field.data != self.password.data:
@@ -42,7 +43,6 @@ class RegisterForm(FlaskForm):
                    $''', re.VERBOSE, )
         if not phone_number_compiler.search(field.data):
             raise ValidationError(f"Invalid phone number.")
-
 
     def validate_terms_and_conditions(self, field):
         if not field.data:

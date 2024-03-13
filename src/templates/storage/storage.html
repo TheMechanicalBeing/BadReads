@@ -2,7 +2,7 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-    <div class="make-border ml-4 freeze filter-div p-3">
+    <div class="make-border freeze filter-div p-3">
         <h3>Filters</h3>
         <form method="post" action="">
             {{ form.hidden_tag() }}
@@ -19,7 +19,7 @@
     </div>
     <div class="container row">
         <div class="col-4"></div>
-        <div class="col-8 make-border move-storage-right-div">
+        <div class="col-8 make-border move-storage-right-div d-flex flex-column align-items-center">
             {% for book in books %}
                 <div class="container row make-border mt-4 p-3">
                     <div class="col-8">

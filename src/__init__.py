@@ -13,11 +13,11 @@ from src.admin.user import UserView
 from src.admin.language import LanguageView
 from src.admin.category import CategoryView
 from src.admin.book_format import BookFormatView
-from src.views import main_bp, auth_bp, storage_bp
+from src.views import main_bp, auth_bp, storage_bp, user_bp
 
 
 COMMANDS = [init_db, populate_db, personal_command]
-BLUEPRINTS = [main_bp, auth_bp, storage_bp]
+BLUEPRINTS = [main_bp, auth_bp, storage_bp, user_bp]
 
 
 def create_app():
