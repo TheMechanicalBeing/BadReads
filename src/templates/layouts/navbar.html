@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {{ createNavLink("main_bp.home_get", "Home") }}
-                {{ createNavLink("storage_bp.storage_get", "Storage") }}
+                {{ createNavLink("storage_bp.storage", "Storage") }}
                 {% if current_user.is_authenticated %}
                     {% if current_user.is_admin %}
                         {{ createNavLink("admin.index", "Admin") }}
