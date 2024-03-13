@@ -3,11 +3,17 @@
 {% endblock %}
 {% block body %}
     <div class="make-border ml-4 freeze filter-div p-3">
-        <h3>Filters {{ form.search.data }}</h3>
+        <h3>Filters</h3>
         <form method="post" action="">
             {{ form.hidden_tag() }}
-            {{ form.search.label(class_="form-label") }}
-            {{ form.search(class_="form-control mb-3", placeholder="Enter what to find") }}
+            {{ form.title.label(class_="form-label") }}
+            {{ form.title(class_="form-control mb-3", placeholder="Enter book title") }}
+            {{ form.author.label(class_="form-label") }}
+            {{ form.author(class_="form-control mb-3", placeholder="Ented author's name") }}
+            {{ form.publish_from.label(class_="form-label") }}
+            {{ form.publish_from(class_="form-control mb-3") }}
+            {{ form.publish_to.label(class_="form-label") }}
+            {{ form.publish_to(class_="form-control mb-3") }}
             {{ form.submit(class_="btn btn-primary") }}
         </form>
     </div>
