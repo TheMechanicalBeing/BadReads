@@ -1,9 +1,11 @@
+from datetime import datetime
+
 from flask.cli import with_appcontext
 import click
 
 from src.extensions import db
 from src.models import Gender, Author, Category, Book, CategoryBook, AuthorBook, BookFormat, BookVersion, \
-    Publisher, Language, Role, User, Tag, BookTag
+    Publisher, Language, Role, User, Tag, BookTag, Read, WantToRead, Reading
 
 
 @click.command("init-db")
@@ -132,6 +134,21 @@ def populate_db():
     BookTag(book2.id, tag2.id, user2.id).create(commit=False)
 
     click.echo("Tags populated")
+    click.echo("Populatind Reading Behaviors...")
+
+    reading1 = Reading(user1.id, book1.id, book1.book_versions[0].id)
+    reading2 = Reading(user1.id, book2.id, book2.book_versions[0].id)
+
+    want_to_read = WantToRead(user2.id, book1.id)
+
+    read = Read(user2.id, book2.id, book2.book_versions[0].id, datetime(2021, 2, 1), datetime(2021, 2, 12))
+
+    reading1.create(commit=False)
+    reading2.create(commit=False)
+    want_to_read.create(commit=False)
+    read.create(commit=False)
+
+    click.echo("Reading Behaviors populated")
 
     db.session.commit()
 

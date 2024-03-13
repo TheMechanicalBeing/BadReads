@@ -11,3 +11,4 @@ from src.models.publisher import Publisher
 from src.models.role import Role
 from src.models.user import User
 from src.models.tag import Tag, BookTag
+from src.models.read_behavior import Read, WantToRead, Reading
