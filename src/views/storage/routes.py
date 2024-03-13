@@ -2,7 +2,6 @@ from os import path
 
 from flask import Blueprint, render_template, request
 
-from src.extensions import db
 from src.config import Config
 from src.models import Book, Author, AuthorBook
 from src.views.storage.forms import StorageFilter
@@ -13,7 +12,7 @@ storage_bp = Blueprint("storage_bp", __name__, template_folder=TEMPLATE_FOLDER, 
 
 @storage_bp.route("/", methods=["GET", "POST"])
 @storage_bp.route("/books", methods=["GET", "POST"])
-def storage_get():
+def storage():
     form = StorageFilter()
     books = Book.query
 
@@ -27,7 +26,6 @@ def storage_get():
                             .filter((Author.first_name_ + " " + Author.last_name_).ilike(f"%{author_data}%")) \
                             .all()
             temp_author_ids = [author.id for author in temp_author]
-            print(temp_author_ids)
             books = books.join(AuthorBook).join(Author).filter(Author.id.in_(temp_author_ids))
 
         if publish_from_data := form.publish_from.data:
@@ -35,7 +33,6 @@ def storage_get():
 
         if publish_to_data := form.publish_to.data:
             books = books.filter(Book.publication_year <= publish_to_data)
-
 
     books = books.all()
     return render_template("storage.html", books=books, form=form)
