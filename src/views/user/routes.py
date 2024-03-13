@@ -40,3 +40,9 @@ def settings_post():
     else:
         [[flash(error, category="danger") for error in errors] for errors in form.errors.values()]
         return redirect(url_for("auth_bp.register_get", form=form))
+
+
+@user_bp.get("/my_books")
+@login_required
+def my_books_get():
+    return render_template("my_books.html")

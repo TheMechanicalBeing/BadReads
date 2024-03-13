@@ -15,11 +15,14 @@
                     {% if current_user.is_admin %}
                         {{ createNavLink("admin.index", "Admin") }}
                     {% endif %}
-                    {{ createNavLink("auth_bp.logout", "My Books") }}
+                    {{ createNavLink("user_bp.my_books_get", "My Books") }}
                     {{ createNavLink("user_bp.settings_get", "Settings") }}
                     {{ createNavLink("auth_bp.logout", "Log out") }}
                 {% endif %}
             </ul>
+            {% if current_user.is_authenticated %}
+                <p style="color: lightgray">{{ current_user.username }}</p>
+            {% endif %}
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search for a book..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
