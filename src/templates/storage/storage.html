@@ -21,14 +21,27 @@
         <div class="col-4"></div>
         <div class="col-8 make-border move-storage-right-div">
             {% for book in books %}
-                <div class="make-border mt-4">
-                    <h3>{{ book.title }}</h3>
-                    <h6 class="no-line-break">By</h6>
-                    {% for author in book.authors %}
-                        <h6 class="no-line-break">{{ author.full_name }}. </h6>
-                    {% endfor %}
-                    <br>
-                    <p>{{ book.publication_year }}</p>
+                <div class="container row make-border mt-4 p-3">
+                    <div class="col-8">
+                        <div>
+                            <h3>{{ book.title }}</h3>
+                            <h6 class="no-line-break">By</h6>
+                            {% for author in book.authors %}
+                                <h6 class="no-line-break">{{ author.full_name }}. </h6>
+                            {% endfor %}
+                            <br>
+                            <p>{{ book.publication_year }}</p>
+                            <p>Categories:</p>
+                            <ul class="m-0 mb-3">
+                                {% for category in book.categories %}
+                                    <li style="font-size: 0.9em; font-style: italic;">{{ category.name|capitalize }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <a href="{{ url_for("storage_bp.book_view_get", book_id=book.id) }}">View Details</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>

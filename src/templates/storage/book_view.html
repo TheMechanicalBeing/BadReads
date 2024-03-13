@@ -9,6 +9,12 @@
             <h3 class="no-line-break">{{ author.full_name }}. </h3>
         {% endfor %}
         <h4>First publication year: {{ book.publication_year }}</h4>
+        <h4>Categories: </h4>
+        <ul>
+        {% for category in book.categories %}
+            <li style="font-size: 1.4em; font-style: italic;">{{ category.name|capitalize }}</li>
+        {% endfor %}
+        </ul>
 
         <hr>
 
