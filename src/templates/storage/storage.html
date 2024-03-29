@@ -36,6 +36,9 @@
                                 {% for category in book.categories %}
                                     <li style="font-size: 0.9em; font-style: italic;">{{ category.name|capitalize }}</li>
                                 {% endfor %}
+                                {% if book_name %}
+                                    <li>{{ book_name }}</li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

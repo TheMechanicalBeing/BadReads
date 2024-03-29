@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_login import logout_user
 
 from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat, BookTag, Read, WantToRead, \
     Reading
@@ -17,6 +16,7 @@ from src.admin.book_format import BookFormatView
 from src.admin.tag import TagView
 from src.admin.reading_behavior import ReadingView, ReadView, WantToReadView
 from src.views import main_bp, auth_bp, storage_bp, user_bp
+from src.views.main.forms import SearchForm
 
 COMMANDS = [init_db, populate_db, personal_command]
 BLUEPRINTS = [main_bp, auth_bp, storage_bp, user_bp]
@@ -29,6 +29,11 @@ def create_app():
     register_extensions(app)
     register_commands(app)
     register_blueprints(app)
+
+    @app.context_processor
+    def inject_form():
+        form = SearchForm()
+        return dict(search_form=form)
 
     return app
 

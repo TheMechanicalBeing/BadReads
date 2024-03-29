@@ -20,11 +20,10 @@ def home_get():
         return render_template("home_unauthorized.html", title="Home")
 
 
-@main_bp.route("/search/<book_name>", methods=["GET", "POST"])
-def search(book_name):
+@main_bp.route("/search", methods=["GET", "POST"])
+def search():
     search_form = SearchForm()
-    book_name = ""
     if search_form.validate_on_submit():
         book_name = search_form.search.data
-        return redirect(url_for("storage_bp.storage", search_form=search_form))
+        return redirect(url_for("storage_bp.storage", book_name=book_name))
     return redirect(request.referrer)
