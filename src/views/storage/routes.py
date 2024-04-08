@@ -12,19 +12,21 @@ storage_bp = Blueprint("storage_bp", __name__, template_folder=TEMPLATE_FOLDER, 
 
 @storage_bp.route("/", methods=["GET", "POST"])
 @storage_bp.route("/books", methods=["GET", "POST"])
-def storage(search_string=None):
+def storage():
     form = StorageFilter()
     books = Book.query
 
     if request.method == "POST":
         if title_data := form.title.data:
             books = books.filter(Book.title.ilike(f"%{title_data}%"))
+        elif book_name := request.args.get("book_name", None):
+            books = books.filter(Book.title.ilike(f"%{book_name}%"))
 
         if author_data := form.author.data:
             temp_author = Author \
-                .query \
-                .filter((Author.first_name_ + " " + Author.last_name_).ilike(f"%{author_data}%")) \
-                .all()
+                            .query \
+                            .filter((Author.first_name_ + " " + Author.last_name_).ilike(f"%{author_data}%")) \
+                            .all()
             temp_author_ids = [author.id for author in temp_author]
             books = books.join(AuthorBook).join(Author).filter(Author.id.in_(temp_author_ids))
 
@@ -35,9 +37,6 @@ def storage(search_string=None):
             books = books.filter(Book.publication_year <= publish_to_data)
 
     books = books.all()
-
-    if search_string:
-        books = books.filter(Book.title.ilike(f"%{search_string}%"))
 
     return render_template("storage.html", books=books, form=form)
 
