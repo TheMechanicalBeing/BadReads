@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request
 from src.config import Config
 from src.models import Book
 from src.views.storage.forms import StorageFilter
-from src.views.storage.filters import FilterUtilsStorage
+from src.views.storage.utils import FilterUtilsStorage
 
 TEMPLATE_FOLDER = path.join(Config.TEMPLATE_FOLDER, "storage")
 storage_bp = Blueprint("storage_bp", __name__, template_folder=TEMPLATE_FOLDER, url_prefix="/storage")
@@ -20,10 +20,7 @@ def storage():
     book_name = request.args.get("book_name", None)
 
     if request.method == "POST":
-        books = filter_obj.filter_title(books)
-        books = filter_obj.filter_author(books)
-        books = filter_obj.filter_publish_from(books)
-        books = filter_obj.filter_publish_to(books)
+        books = filter_obj.filter_full(books)
     elif request.method == 'GET':
         if book_name:
             books = books.filter(Book.title.ilike(f"%{book_name}%"))

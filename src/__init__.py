@@ -1,7 +1,10 @@
 from flask import Flask
 
-from src.models import db, User, Author, Book, BookVersion, Language, Category, BookFormat, BookTag, Read, WantToRead, \
-    Reading
+from src.models import (
+    db, User, Author, Book, BookVersion,
+    Language, Category, BookFormat,
+    BookTag, Read, WantToRead, Reading
+)
 from src.config import Config
 from src.commands import init_db, populate_db, personal_command
 from src.extensions import login_manager

@@ -33,3 +33,9 @@ class FilterUtilsStorage:
             return books_query.filter(Book.publication_year <= publish_to_data)
         else:
             return books_query
+
+    def filter_full(self, books_query):
+        books_query = self.filter_title(books_query)
+        books_query = self.filter_author(books_query)
+        books_query = self.filter_publish_from(books_query)
+        return self.filter_publish_to(books_query)
