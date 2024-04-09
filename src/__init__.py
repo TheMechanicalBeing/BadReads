@@ -29,11 +29,7 @@ def create_app():
     register_extensions(app)
     register_commands(app)
     register_blueprints(app)
-
-    @app.context_processor
-    def inject_form():
-        form = SearchForm()
-        return dict(search_form=form)
+    register_contexts(app)
 
     return app
 
@@ -72,3 +68,9 @@ def register_commands(app):
 def register_blueprints(app):
     for blueprint in BLUEPRINTS:
         app.register_blueprint(blueprint)
+
+
+def register_contexts(app):
+    @app.context_processor
+    def inject_search_form():
+        return dict(search_form=SearchForm())
